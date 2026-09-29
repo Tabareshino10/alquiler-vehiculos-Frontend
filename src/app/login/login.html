@@ -1,0 +1,101 @@
+<div class="container-fluid min-vh-100 bg-light d-flex align-items-center justify-content-center">
+
+  <div class="row shadow-lg rounded-4 overflow-hidden bg-white" style="max-width: 900px; width: 100%;">
+
+    <!-- Parte izquierda -->
+    <div class="col-md-6 bg-primary text-white d-flex flex-column justify-content-center p-5">
+
+      <h1 class="fw-bold mb-3">
+        Alquiler de Vehículos
+      </h1>
+
+      <p class="fs-5">
+        Encuentra el vehículo que necesitas de manera rápida, sencilla y segura.
+      </p>
+
+      <div class="mt-4">
+        <i class="bi bi-car-front-fill fs-1"></i>
+      </div>
+
+    </div>
+
+    <!-- Parte derecha -->
+    <div class="col-md-6 p-5">
+
+      <div class="text-center mb-4">
+
+        <h2 class="fw-bold">
+          Iniciar sesión
+        </h2>
+
+        <p class="text-secondary">
+          Ingresa a tu cuenta
+        </p>
+
+      </div>
+
+      <form>
+
+        <!-- Correo -->
+        <div class="mb-4">
+  <label class="form-label fw-semibold">Identificación</label>
+  <div class="input-group">
+    <span class="input-group-text">
+      <i class="bi bi-card-heading"></i>
+    </span>
+    <input 
+      type="text" 
+      class="form-control" 
+      name="identificacion"
+      [(ngModel)]="identificacion" 
+      placeholder="Ingrese su identificación (CC)">
+  </div>
+</div>
+
+<!-- Input de Contraseña -->
+<div class="mb-4">
+  <label class="form-label fw-semibold">Contraseña</label>
+  <div class="input-group">
+    <span class="input-group-text">
+      <i class="bi bi-lock"></i>
+    </span>
+    <input 
+      type="password" 
+      class="form-control" 
+      name="contrasena"
+      [(ngModel)]="contrasena" 
+      placeholder="Ingrese su contraseña">
+  </div>
+</div>
+
+<!-- Botón de Inicio de Sesión -->
+<div class="d-grid">
+  <button 
+    type="button" 
+    class="btn btn-primary btn-lg rounded-3" 
+    (click)="iniciarSesion()">
+    Iniciar sesión
+  </button>
+</div>
+
+      </form>
+
+      <div class="text-center mt-4">
+
+        <span class="text-secondary">
+          ¿No tienes una cuenta?
+        </span>
+
+        <a routerLink="/registro" class="text-primary fw-semibold text-decoration-none">
+
+          Regístrate
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

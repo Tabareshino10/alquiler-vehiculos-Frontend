@@ -1,0 +1,18 @@
+<nav class="navbar navbar-light bg-white shadow-sm px-4 d-flex justify-content-between">
+  <span class="navbar-brand mb-0 h1 fw-bold text-success">Alquiler de Vehículos</span>
+
+  <!-- Se muestra solo si el usuario existe -->
+  <div *ngIf="usuario" class="d-flex align-items-center gap-2">
+    <span class="badge rounded-pill bg-success p-2">
+      <i class="bi bi-circle-fill text-white me-1" style="font-size: 8px;"></i> En línea
+    </span>
+
+    <span class="fw-semibold text-dark">
+      {{ usuario.nombreCompleto }}
+    </span>
+
+    <button class="btn btn-outline-danger btn-sm ms-2" (click)="cerrarSesion()">
+      Cerrar sesión
+    </button>
+  </div>
+</nav>

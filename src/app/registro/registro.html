@@ -1,0 +1,190 @@
+<div class="container-fluid min-vh-100 bg-light d-flex align-items-center justify-content-center py-5">
+
+  <div class="row shadow-lg rounded-4 overflow-hidden bg-white" style="max-width: 950px; width: 100%;">
+
+    <!-- Parte izquierda -->
+    <div class="col-md-5 bg-success text-white d-flex flex-column justify-content-center p-5">
+      <h1 class="fw-bold mb-3">Crear cuenta</h1>
+      <p class="fs-5">
+        Regístrate para poder alquilar vehículos de forma rápida y segura.
+      </p>
+      <i class="bi bi-person-plus-fill display-1 mt-4"></i>
+    </div>
+
+    <!-- Formulario -->
+    <div class="col-md-7 p-5">
+
+      <div class="text-center mb-4">
+        <h2 class="fw-bold">Registro</h2>
+        <p class="text-secondary">Crea tu cuenta</p>
+      </div>
+
+      <form>
+
+        <!-- Identificación -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Identificación</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-card-heading"></i>
+            </span>
+            <input 
+              type="text" 
+              class="form-control" 
+              name="identificacion"
+              [(ngModel)]="usuario.identificacion"
+              placeholder="Ingrese su identificación">
+          </div>
+        </div>
+
+        <!-- Nombre Completo -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Nombre completo</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-person"></i>
+            </span>
+            <input 
+              type="text" 
+              class="form-control" 
+              name="nombreCompleto"
+              [(ngModel)]="usuario.nombreCompleto"
+              placeholder="Ingrese su nombre completo">
+          </div>
+        </div>
+
+        <!-- Fecha Expedición Licencia -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Fecha expedición licencia</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-calendar-event"></i>
+            </span>
+            <input 
+              type="date" 
+              class="form-control" 
+              name="fechaLicencia"
+              [(ngModel)]="usuario.fechaLicencia">
+          </div>
+        </div>
+
+        <!-- Categoría Licencia -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Categoría Licencia</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-award"></i>
+            </span>
+            <input 
+              type="text" 
+              class="form-control" 
+              name="categoria"
+              [(ngModel)]="usuario.categoria"
+              placeholder="Ej: B1, C1">
+          </div>
+        </div>
+
+        <!-- Vigencia -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Vigencia</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-calendar-check"></i>
+            </span>
+            <input 
+              type="date" 
+              class="form-control" 
+              name="vigencia"
+              [(ngModel)]="usuario.vigencia">
+          </div>
+        </div>
+
+        <!-- Correo -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Correo electrónico</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-envelope"></i>
+            </span>
+            <input 
+              type="email" 
+              class="form-control" 
+              name="correo"
+              [(ngModel)]="usuario.correo"
+              placeholder="correo@ejemplo.com">
+          </div>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Teléfono</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-telephone"></i>
+            </span>
+            <input 
+              type="tel" 
+              class="form-control" 
+              name="telefono"
+              [(ngModel)]="usuario.telefono"
+              placeholder="Ingrese su teléfono">
+          </div>
+        </div>
+
+        <!-- Contraseña -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Contraseña</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-lock"></i>
+            </span>
+            <input 
+              type="password" 
+              class="form-control" 
+              name="contrasena"
+              [(ngModel)]="usuario.contrasena"
+              placeholder="Ingrese una contraseña">
+          </div>
+        </div>
+
+        <!-- Confirmar contraseña -->
+        <div class="mb-4">
+          <label class="form-label fw-semibold">Confirmar contraseña</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-lock-fill"></i>
+            </span>
+            <input 
+              type="password" 
+              class="form-control" 
+              name="confirmarContrasena"
+              [(ngModel)]="confirmarContrasena"
+              placeholder="Confirme su contraseña">
+          </div>
+        </div>
+
+        <!-- Botón -->
+        <div class="d-grid">
+          <button 
+            type="button" 
+            class="btn btn-success btn-lg rounded-3" 
+            (click)="registrar()">
+            <a routerLink="/home" class="text-success fw-semibold text-decoration-none"></a>
+            Crear cuenta
+          </button>
+        </div>
+
+      </form>
+
+      <div class="text-center mt-4">
+        <span class="text-secondary">¿Ya tienes una cuenta? </span>
+        <a routerLink="/login" class="text-success fw-semibold text-decoration-none">
+          Iniciar sesión
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
