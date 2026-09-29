@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { VehiculoE } from '../Entidades/Vehiculo';
+import { VehiculoE } from '../Entidades/vehiculo';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class VehiculoService {
   constructor(private httpCliente: HttpClient) { }
 
   private listaV = 'http://localhost:8080/vehiculos/v/listarTodo/';
-  private guardarV = 'http://localhost:8080/vehiculos/v/guardarVehiculo/';
+  private guardarV = 'http://localhost:8080/vehiculos/v/guardar/';
   private eliminarV = 'http://localhost:8080/vehiculos/v/eliminarVehiculo/';
   private buscarPlaca = 'http://localhost:8080/vehiculos/v/buscarPlaca/';
   private buscarDisponiblesTipo = 'http://localhost:8080/vehiculos/v/buscarDisponiblesTipo/';
