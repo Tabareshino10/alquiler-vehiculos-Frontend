@@ -3,15 +3,13 @@ import { VehiculoService } from '../servicios/vehiculo-service';
 import { VehiculoE } from '../Entidades/vehiculo';
 import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-<<<<<<< HEAD
 import { firstValueFrom } from 'rxjs';
 import { AlquilerE } from '../Entidades/alquiler';
 import { AlquilerService } from '../servicios/alquiler-service';
 import { UsuarioService } from '../servicios/usuario-service';
-=======
 import { EnviarDatosService } from '../servicios/enviar-datos-service';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
->>>>>>> 12eef4ed9e4bfa9e6265f805dfd17f1fa33bec8c
+
 
 @Component({
   selector: 'app-vehiculo',
@@ -25,16 +23,16 @@ export class Vehiculo implements OnInit {
   listaV: VehiculoE[] = [];
   vehiculo: VehiculoE = new VehiculoE();
 
-<<<<<<< HEAD
+
   // 🟢 NUEVAS VARIABLES PARA EL ALQUILER
   alquiler: AlquilerE = new AlquilerE();
   cc: string = "";
-=======
+
   dataService = inject(EnviarDatosService);
   private router = inject(Router);
 
   usuario: any = null;
->>>>>>> 12eef4ed9e4bfa9e6265f805dfd17f1fa33bec8c
+
 
   ngOnInit(): void {
     this.listarVehiculos();
@@ -119,7 +117,6 @@ export class Vehiculo implements OnInit {
       modal.style.display = 'none';
   }
 
-<<<<<<< HEAD
   // 🟢 NUEVOS MÉTODOS PARA EL ALQUILER
 
   elegirVehiculo(v: VehiculoE) {
@@ -182,11 +179,11 @@ export class Vehiculo implements OnInit {
       console.error('Error al buscar el usuario:', error);
       alert('No se pudo encontrar el usuario con la cédula ingresada');
     }
-=======
+  }
+
   cerrarSesion() {
     this.dataService.limpiar();
     this.usuario = null;
     this.router.navigate(['/login']);
->>>>>>> 12eef4ed9e4bfa9e6265f805dfd17f1fa33bec8c
   }
 }
