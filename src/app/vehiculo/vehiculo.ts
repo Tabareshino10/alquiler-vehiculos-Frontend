@@ -82,6 +82,7 @@ export class Vehiculo implements OnInit {
     });
   }
 
+
   actualizar(v: VehiculoE) {
     this.vehiculo = v;
     this.abrirModal();

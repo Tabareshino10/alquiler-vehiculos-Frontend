@@ -15,6 +15,7 @@ export class AlquilerService {
   private cancelarA = 'http://localhost:8080/alquileres/a/cancelar/';
   private entregarP = 'http://localhost:8080/alquileres/a/entregarPorPlaca/';
   private devolverA = 'http://localhost:8080/alquileres/a/devolver/';
+  private eliminarA = 'http://localhost:8080/alquileres/a/eliminar/'
 
   listarAlquileres(): Observable<AlquilerE[]> {
     return this.httpCliente.get<AlquilerE[]>(this.listaA);
@@ -34,5 +35,9 @@ export class AlquilerService {
 
   devolverVehiculo(idAlquiler: number): Observable<AlquilerE> {
     return this.httpCliente.post<AlquilerE>(this.devolverA, null, {params: { idAlquiler: idAlquiler.toString() }});
+  }
+
+  eliminarAlquiler(idAlquiler: number): Observable<any> {
+    return this.httpCliente.post(`${this.eliminarA}`, null,{params: { idAlquiler: idAlquiler.toString() }, responseType: 'text'} );
   }
 }

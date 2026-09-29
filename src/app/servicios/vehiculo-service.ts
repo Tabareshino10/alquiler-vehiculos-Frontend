@@ -13,7 +13,7 @@ export class VehiculoService {
 
   private listaV = 'http://localhost:8080/vehiculos/v/listarTodo/';
   private guardarV = 'http://localhost:8080/vehiculos/v/guardar/';
-  private eliminarV = 'http://localhost:8080/vehiculos/v/eliminarVehiculo/';
+  private eliminarV = 'http://localhost:8080/vehiculos/v/eliminarVehiculo';
   private buscarPlaca = 'http://localhost:8080/vehiculos/v/buscarPlaca/';
   private buscarDisponiblesTipo = 'http://localhost:8080/vehiculos/v/buscarDisponiblesTipo/';
   private buscarEstado = 'http://localhost:8080/vehiculos/v/buscarEstado/';
@@ -31,7 +31,7 @@ export class VehiculoService {
   }
 
   eliminarVehiculo(placa: string): Observable<any> {
-    return this.httpCliente.post(`${this.eliminarV}`, null, { params: { placa: placa } });
+    return this.httpCliente.post(`${this.eliminarV}`, placa);
   }
 
   buscarDisponiblesPorTipo(idTipoVehiculo: string): Observable<any> {

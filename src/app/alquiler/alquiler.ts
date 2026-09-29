@@ -37,6 +37,8 @@ export class Alquiler implements OnInit {
     });
   }
 
+
+
   solicitarAlquiler() {
     this.servicioVehiculo.buscarPorEstado("disponible").subscribe(dato => {
       this.vehiculosDisponibles = dato;
@@ -62,12 +64,19 @@ export class Alquiler implements OnInit {
     }
   }
 
-  cancelar(idAlquiler: number) {
-    this.servicioAlquiler.cancelarAlquiler(idAlquiler).subscribe(mensaje => {
-      alert(mensaje);
-      this.listarAlquileres();
-    });
-  }
+ eliminar(idAlquiler: number) {
+  this.servicioAlquiler.eliminarAlquiler(idAlquiler).subscribe(dato => {
+    console.log(dato);
+    this.listarAlquileres();
+  });
+}
+
+cancelar(idAlquiler: number) {
+  this.servicioAlquiler.cancelarAlquiler(idAlquiler).subscribe(mensaje => {
+    alert(mensaje);
+    this.eliminar(idAlquiler); 
+  });
+}
 
   entregar(placa: string) {
     this.servicioAlquiler.entregarPorPlaca(placa).subscribe(mensaje => {
