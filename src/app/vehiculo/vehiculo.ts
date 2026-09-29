@@ -3,6 +3,10 @@ import { VehiculoService } from '../servicios/vehiculo-service';
 import { VehiculoE } from '../Entidades/vehiculo';
 import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { firstValueFrom } from 'rxjs';
+import { AlquilerE } from '../Entidades/alquiler';
+import { AlquilerService } from '../servicios/alquiler-service';
+import { UsuarioService } from '../servicios/usuario-service';
 
 @Component({
   selector: 'app-vehiculo',
@@ -16,11 +20,21 @@ export class Vehiculo implements OnInit {
   listaV: VehiculoE[] = [];
   vehiculo: VehiculoE = new VehiculoE();
 
+  // 🟢 NUEVAS VARIABLES PARA EL ALQUILER
+  alquiler: AlquilerE = new AlquilerE();
+  cc: string = "";
+
   ngOnInit(): void {
     this.listarVehiculos();
   }
 
-  constructor(private cdr: ChangeDetectorRef, private servicioVehiculo: VehiculoService) { }
+  // 🟢 CONSTRUCTOR CON SERVICIOS AGREGADOS (Mantiene los que tenías)
+  constructor(
+    private cdr: ChangeDetectorRef, 
+    private servicioVehiculo: VehiculoService,
+    private servicioAlquiler: AlquilerService,  // 👈 Nuevo
+    private servicioUsuario: UsuarioService    // 👈 Nuevo
+  ) { }
 
   private listarVehiculos() {
     this.servicioVehiculo.listarVehiculos().subscribe(dato => {
@@ -84,5 +98,54 @@ export class Vehiculo implements OnInit {
     const modal = document.getElementById("registro");
     if (modal != null)
       modal.style.display = 'none';
+  }
+
+  // 🟢 NUEVOS MÉTODOS PARA EL ALQUILER
+
+  elegirVehiculo(v: VehiculoE) {
+    console.log("Vehículo seleccionado:", v);
+    this.alquiler.vehiculo = v;
+    this.solicitarAlquiler();
+  }
+
+  solicitarAlquiler() {
+    const modal = document.getElementById("registroAlquiler");
+    if (modal != null)
+      modal.style.display = 'block';
+  }
+
+  cerrarModalAlquiler() {
+    this.alquiler = new AlquilerE(); // Esto limpiará fechas, vehículo y usuario
+    this.cc = ""; // Limpia la cédula
+    const modal = document.getElementById("registroAlquiler");
+    if (modal != null) {
+      modal.style.display = 'none';
+    }
+  }
+
+  guardarAlquiler() {
+    this.buscarUsuarioYGuardar();
+  }
+
+  async buscarUsuarioYGuardar() {
+    try {
+      // 1. Busca el usuario por cédula
+      const usuario = await firstValueFrom(this.servicioUsuario.buscarUsuario(this.cc));
+      console.log("Usuario encontrado:", usuario);
+      
+      this.alquiler.idUsuario = usuario;
+
+      // 2. Guarda el alquiler
+      this.servicioAlquiler.guardarAlquiler(this.alquiler).subscribe(dato => {
+        console.log("Alquiler guardado:", dato);
+        this.cerrarModalAlquiler();
+        alert("Su alquiler ha sido asignado con éxito");
+        this.listarVehiculos(); // Refresca la lista de vehículos
+      });
+
+    } catch (error) {
+      console.error('Error al buscar el usuario:', error);
+      alert('No se pudo encontrar el usuario con la cédula ingresada');
+    }
   }
 }

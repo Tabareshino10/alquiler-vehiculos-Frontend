@@ -12,6 +12,8 @@ export class UsuarioService {
 
     private login = 'http://localhost:8080/usuarios/u/login/';
 
+    private buscarU = 'http://localhost:8080/usuarios/u/buscarCC/'
+
     constructor(private httpCliente: HttpClient) {}
 
     registrarUsuario(usuario: UsuarioEntidad): Observable<any> {
@@ -23,6 +25,10 @@ export class UsuarioService {
     }
 
 
+
+    buscarUsuario(identificacion: string) : Observable<any>{
+    return this.httpCliente.get(`${this.buscarU}`,{params:{identificacion:identificacion}});
+  }
 
 
 } 
