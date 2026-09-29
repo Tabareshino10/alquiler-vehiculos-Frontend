@@ -1,3 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 shadow-sm border-bottom border-secondary">
+  <div class="container-fluid">
+    
+    <!-- Marca / Logo -->
+    <a class="navbar-brand fw-bold text-success d-flex align-items-center gap-2" routerLink="/home">
+      <i class="bi bi-car-front-fill fs-4 text-white"></i>
+      <span class="fs-4 text-white">Mi Cacharrito</span>
+    </a>
+
+    <!-- Botón para celulares / pantallas pequeñas -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Enlaces de Navegación -->
+    <div class="collapse navbar-collapse" id="navbarContenido">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 gap-2">
+        <li class="nav-item">
+          <a class="nav-link px-3 rounded-2" routerLink="/home" routerLinkActive="active fw-bold text-success">
+            <i class="bi bi-house-door me-1"></i> Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-3 rounded-2" routerLink="/vehiculo" routerLinkActive="active fw-bold text-success">
+            <i class="bi bi-car-front me-1"></i> Vehículos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-3 rounded-2" routerLink="/alquiler" routerLinkActive="active fw-bold text-success">
+            <i class="bi bi-journal-text me-1"></i> Alquileres
+          </a>
+        </li>
+      </ul>
+
+      <!-- Usuario En Línea (Alineado a la derecha) -->
+      @if (usuario) {
+        <div class="d-flex align-items-center gap-3 bg-secondary bg-opacity-25 px-3 py-2 rounded-pill border border-secondary mt-2 mt-lg-0">
+          <span class="badge rounded-pill bg-success px-2 py-1 d-flex align-items-center gap-1">
+            <i class="bi bi-circle-fill text-white" style="font-size: 7px;"></i> En línea
+          </span>
+
+          <span class="fw-semibold text-white small">
+            <i class="bi bi-person-circle me-1 text-success"></i> {{ usuario.nombreCompleto }}
+          </span>
+
+          <button class="btn btn-outline-danger btn-sm rounded-pill px-3" (click)="cerrarSesion()">
+            <i class="bi bi-box-arrow-right"></i> Salir
+          </button>
+        </div>
+      }
+    </div>
+
+  </div>
+</nav>
 <div class="container mt-4">
     <h2>Gestión de Vehículos</h2>
 

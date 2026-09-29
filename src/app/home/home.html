@@ -1,18 +1,220 @@
-<nav class="navbar navbar-light bg-white shadow-sm px-4 d-flex justify-content-between">
-  <span class="navbar-brand mb-0 h1 fw-bold text-success">Alquiler de Vehículos</span>
 
-  <!-- Se muestra solo si el usuario existe -->
-  <div *ngIf="usuario" class="d-flex align-items-center gap-2">
-    <span class="badge rounded-pill bg-success p-2">
-      <i class="bi bi-circle-fill text-white me-1" style="font-size: 8px;"></i> En línea
-    </span>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 shadow-sm border-bottom border-secondary">
+  <div class="container-fluid">
+    
+    <!-- Marca / Logo -->
+    <a class="navbar-brand fw-bold text-success d-flex align-items-center gap-2" routerLink="/home">
+      <i class="bi bi-car-front-fill fs-4 text-white"></i>
+      <span class="fs-4 text-white">Mi Cacharrito</span>
+    </a>
 
-    <span class="fw-semibold text-dark">
-      {{ usuario.nombreCompleto }}
-    </span>
-
-    <button class="btn btn-outline-danger btn-sm ms-2" (click)="cerrarSesion()">
-      Cerrar sesión
+    <!-- Botón para celulares / pantallas pequeñas -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido">
+      <span class="navbar-toggler-icon"></span>
     </button>
+
+    <!-- Enlaces de Navegación -->
+    <div class="collapse navbar-collapse" id="navbarContenido">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 gap-2">
+        <li class="nav-item">
+          <a class="nav-link px-3 rounded-2" routerLink="/home" routerLinkActive="active fw-bold text-success">
+            <i class="bi bi-house-door me-1"></i> Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-3 rounded-2" routerLink="/vehiculo" routerLinkActive="active fw-bold text-success">
+            <i class="bi bi-car-front me-1"></i> Vehículos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-3 rounded-2" routerLink="/alquiler" routerLinkActive="active fw-bold text-success">
+            <i class="bi bi-journal-text me-1"></i> Alquileres
+          </a>
+        </li>
+      </ul>
+
+      <!-- Usuario En Línea (Alineado a la derecha) -->
+      @if (usuario) {
+        <div class="d-flex align-items-center gap-3 bg-secondary bg-opacity-25 px-3 py-2 rounded-pill border border-secondary mt-2 mt-lg-0">
+          <span class="badge rounded-pill bg-success px-2 py-1 d-flex align-items-center gap-1">
+            <i class="bi bi-circle-fill text-white" style="font-size: 7px;"></i> En línea
+          </span>
+
+          <span class="fw-semibold text-white small">
+            <i class="bi bi-person-circle me-1 text-success"></i> {{ usuario.nombreCompleto }}
+          </span>
+
+          <button class="btn btn-outline-danger btn-sm rounded-pill px-3" (click)="cerrarSesion()">
+            <i class="bi bi-box-arrow-right"></i> Salir
+          </button>
+        </div>
+      }
+    </div>
+
   </div>
 </nav>
+
+<!-- HERO BANNER VERDE FULL WIDTH (Pegado al navbar) -->
+<section class="bg-success text-white py-5 position-relative overflow-hidden shadow-sm w-100">
+  <div class="container py-4">
+    <div class="row align-items-center">
+      
+      <!-- Lado Izquierdo: Texto y Botón -->
+      <div class="col-lg-7">
+        <span class="badge bg-white text-success fw-bold px-3 py-2 rounded-pill mb-3 shadow-sm">
+          <i class="bi bi-star-fill text-warning me-1"></i> Mi Cacharrito
+        </span>
+        <h1 class="display-4 fw-bold mb-3">Alquila el vehículo ideal para tu próximo destino</h1>
+        <p class="lead mb-4 opacity-90">
+          Encuentra automóviles, camionetas, camperos, microbuses y motocicletas listos para tus viajes. Proceso rápido, seguro y disponible en línea.
+        </p>
+        <div class="d-flex flex-wrap gap-3">
+          <a routerLink="/vehiculo" class="btn btn-light text-success btn-lg fw-bold px-4 rounded-3 shadow-sm">
+            Explorar Categorías <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Lado Derecho: Icono Ilustración -->
+      <div class="col-lg-5 d-none d-lg-block text-center">
+        <i class="bi bi-car-front display-1 text-white opacity-75" style="font-size: 10rem;"></i>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Carrusel de Vehículos Disponibles -->
+<section class="container my-5" id="flota">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold text-dark">Nuestra Flota de Vehículos</h2>
+    <p class="text-muted">Selecciona la opción que mejor se ajuste a tus necesidades</p>
+  </div>
+
+  <div id="carruselVehiculos" class="carousel slide shadow-lg rounded-4 overflow-hidden" data-bs-ride="carousel">
+    
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carruselVehiculos" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#carruselVehiculos" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#carruselVehiculos" data-bs-slide-to="2"></button>
+      <button type="button" data-bs-target="#carruselVehiculos" data-bs-slide-to="3"></button>
+      <button type="button" data-bs-target="#carruselVehiculos" data-bs-slide-to="4"></button>
+    </div>
+
+    <div class="carousel-inner">
+      <!-- Automóviles -->
+      <div class="carousel-item active" style="height: 380px; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1200') center/cover;">
+        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100">
+          <span class="badge bg-success mb-2 px-3 py-2 fs-6">Automóviles</span>
+          <h3 class="display-6 fw-bold">Comodidad y Eficiencia Urbana</h3>
+          <p class="fs-5 d-none d-md-block">Ideal para recorridos diarios y viajes en ciudad.</p>
+          <button class="btn btn-success px-4 rounded-pill">Ver Disponibles</button>
+        </div>
+      </div>
+
+      <!-- Camionetas -->
+      <div class="carousel-item" style="height: 380px; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1200') center/cover;">
+        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100">
+          <span class="badge bg-success mb-2 px-3 py-2 fs-6">Camionetas</span>
+          <h3 class="display-6 fw-bold">Espacio y Potencia Familiar</h3>
+          <p class="fs-5 d-none d-md-block">Capacidad y confort para viajes largos con equipaje.</p>
+          <button class="btn btn-success px-4 rounded-pill">Ver Disponibles</button>
+        </div>
+      </div>
+
+      <!-- Camperos -->
+      <div class="carousel-item" style="height: 380px; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://imgs.search.brave.com/xSWRMM8RjIQ-dnfta_ztJS_I0QqbRKxRBuNiOyPxcWw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy90b3lv/dGEtbGFuZC1jcnVp/c2VyLTEwLTY4MDc5/NWNkMjZkNjkuanBn/P2Nyb3A9MXh3OjF4/aDtjZW50ZXIsdG9w') center/cover;">
+        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100">
+          <span class="badge bg-success mb-2 px-3 py-2 fs-6">Camperos 4x4</span>
+          <h3 class="display-6 fw-bold">Aventura Todo Terreno</h3>
+          <p class="fs-5 d-none d-md-block">Resistencia asegurada para caminos difíciles y trocha.</p>
+          <button class="btn btn-success px-4 rounded-pill">Ver Disponibles</button>
+        </div>
+      </div>
+
+      <!-- Microbuses -->
+      <div class="carousel-item" style="height: 380px; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=1200') center/cover;">
+        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100">
+          <span class="badge bg-success mb-2 px-3 py-2 fs-6">Microbuses</span>
+          <h3 class="display-6 fw-bold">Transporte de Grupos</h3>
+          <p class="fs-5 d-none d-md-block">Capacidad ampliada para viajes grupales y ejecutivos.</p>
+          <button class="btn btn-success px-4 rounded-pill">Ver Disponibles</button>
+        </div>
+      </div>
+
+      <!-- Motocicletas -->
+      <div class="carousel-item" style="height: 380px; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?q=80&w=1200') center/cover;">
+        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100">
+          <span class="badge bg-success mb-2 px-3 py-2 fs-6">Motocicletas</span>
+          <h3 class="display-6 fw-bold">Agilidad y Rapidez</h3>
+          <p class="fs-5 d-none d-md-block">Desplazamiento ágil para moverte sin complicaciones.</p>
+          <button class="btn btn-success px-4 rounded-pill">Ver Disponibles</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carruselVehiculos" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carruselVehiculos" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+</section>
+
+<!-- Tarjetas de Selección por Categoría -->
+<section class="container my-5 py-3" id="categorias">
+  <div class="text-center mb-4">
+    <h3 class="fw-bold">Categorías de Vehículos</h3>
+    <p class="text-muted">Filtra y encuentra rápidamente lo que buscas</p>
+  </div>
+
+  <div class="row g-3 text-center justify-content-center">
+    
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card border-0 shadow-sm p-3 rounded-4 hover-card h-100">
+        <div class="text-success mb-2">
+          <i class="bi bi-car-front fs-1"></i>
+        </div>
+        <h6 class="fw-bold mb-0">Automóvil</h6>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card border-0 shadow-sm p-3 rounded-4 hover-card h-100">
+        <div class="text-success mb-2">
+          <i class="bi bi-truck fs-1"></i>
+        </div>
+        <h6 class="fw-bold mb-0">Camioneta</h6>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card border-0 shadow-sm p-3 rounded-4 hover-card h-100">
+        <div class="text-success mb-2">
+          <i class="bi bi-compass fs-1"></i>
+        </div>
+        <h6 class="fw-bold mb-0">Campero</h6>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card border-0 shadow-sm p-3 rounded-4 hover-card h-100">
+        <div class="text-success mb-2">
+          <i class="bi bi-bus-front fs-1"></i>
+        </div>
+        <h6 class="fw-bold mb-0">Microbús</h6>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card border-0 shadow-sm p-3 rounded-4 hover-card h-100">
+        <div class="text-success mb-2">
+          <i class="bi bi-bicycle fs-1"></i>
+        </div>
+        <h6 class="fw-bold mb-0">Motocicleta</h6>
+      </div>
+    </div>
+
+  </div>
+</section>
