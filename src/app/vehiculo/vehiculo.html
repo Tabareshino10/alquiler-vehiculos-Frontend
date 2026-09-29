@@ -97,35 +97,40 @@
     </div>
 </div>
 
-<!-- MODAL DE ALQUILER (Colocar al final del archivo vehiculo.html) -->
+<!-- MODAL DE ALQUILER -->
 <div id="registroAlquiler" style="display: none; background: rgba(0,0,0,0.6); position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; overflow-y: auto;">
   
   <div style="margin: 5% auto; max-width: 500px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); pointer-events: auto;">
     
     <h3 class="mb-4">Solicitar Alquiler</h3>
     
-    <!-- Muestra el vehículo asignado -->
+    <!-- Vehículo seleccionado -->
     <div class="alert alert-info">
-      <strong>Vehículo Seleccionado:</strong> {{ alquiler.vehiculo?.placa }} <br>
-      <small>Color: {{ alquiler.vehiculo?.color }}</small>
+      <strong>Vehículo Seleccionado:</strong> {{ alquiler.vehiculo?.placa }}
     </div>
 
-    <!-- Campo Cédula -->
+    <!-- Cédula -->
     <div class="form-group mb-3">
-      <label class="fw-bold">Cédula del Usuario/Cliente:</label>
+      <label class="fw-bold">Cédula del Usuario:</label>
       <input type="text" [(ngModel)]="cc" name="cc" class="form-control" placeholder="Ingrese la cédula">
     </div>
 
-    <!-- Campo Fecha Inicio -->
+    <!-- Fecha Inicio -->
     <div class="form-group mb-3">
       <label class="fw-bold">Fecha de Inicio:</label>
+      <input type="date" [(ngModel)]="alquiler.fechaInicio" name="fechaInicio" class="form-control">
+    </div>
+
+    <!-- Fecha Entrega Prevista (Coincide con fechaEntregaP en Java) -->
+    <div class="form-group mb-3">
+      <label class="fw-bold">Fecha Prevista de Entrega:</label>
       <input type="date" [(ngModel)]="alquiler.fechaEntregaP" name="fechaEntregaP" class="form-control">
     </div>
 
-    <!-- Campo Fecha Fin -->
+    <!-- Valor Alquiler (Coincide con valorAlquiler en Java) -->
     <div class="form-group mb-4">
-      <label class="fw-bold">Fecha de Fin (Devolución):</label>
-      <input type="date" [(ngModel)]="alquiler.fechaEntregaR" name="fechaEntregaR" class="form-control">
+      <label class="fw-bold">Valor Alquiler ($):</label>
+      <input type="number" [(ngModel)]="alquiler.valorAlquiler" name="valorAlquiler" class="form-control" placeholder="0.00">
     </div>
 
     <!-- Botones -->
