@@ -5,10 +5,14 @@ import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EnviarDatosService } from '../servicios/enviar-datos-service';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
+import { AlquilerE } from '../Entidades/alquiler';
+import { AlquilerService } from '../servicios/alquiler-service';
+import { UsuarioService } from '../servicios/usuario-service';
 
 @Component({
   selector: 'app-vehiculo',
-  imports: [NgFor, CommonModule, FormsModule,RouterLink, RouterLinkActive,],
+  imports: [NgFor, CommonModule, FormsModule, RouterLink, RouterLinkActive],
   templateUrl: './vehiculo.html',
   styleUrl: './vehiculo.css',
 })
@@ -23,6 +27,10 @@ export class Vehiculo implements OnInit {
 
   usuario: any = null;
 
+  // 🟢 NUEVAS VARIABLES PARA EL ALQUILER
+  alquiler: AlquilerE = new AlquilerE();
+  cc: string = "";
+
   ngOnInit(): void {
     this.listarVehiculos();
     const datoActual = this.dataService.usuarioSignal();
@@ -33,7 +41,12 @@ export class Vehiculo implements OnInit {
     }
   }
 
-  constructor(private cdr: ChangeDetectorRef, private servicioVehiculo: VehiculoService) { }
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private servicioVehiculo: VehiculoService,
+    private servicioAlquiler: AlquilerService,
+    private servicioUsuario: UsuarioService   
+  ) { }
 
   private listarVehiculos() {
     this.servicioVehiculo.listarVehiculos().subscribe(dato => {
@@ -103,5 +116,66 @@ export class Vehiculo implements OnInit {
     this.dataService.limpiar();
     this.usuario = null;
     this.router.navigate(['/login']);
+  } // 👈 SE AGREGÓ LA LLAVE QUE FALTABA AQUÍ
+
+  elegirVehiculo(v: VehiculoE) {
+    console.log("Vehículo seleccionado:", v);
+    this.alquiler.vehiculo = v;
+    this.solicitarAlquiler();
+  }
+
+  solicitarAlquiler() {
+    const modal = document.getElementById("registroAlquiler");
+    if (modal != null)
+      modal.style.display = 'block';
+  }
+
+  cerrarModalAlquiler() {
+    this.alquiler = new AlquilerE();
+    this.cc = ""; // Limpia la cédula
+    const modal = document.getElementById("registroAlquiler");
+    if (modal != null) {
+      modal.style.display = 'none';
+    }
+  }
+
+  guardarAlquiler() {
+    this.buscarUsuarioYGuardar();
+  }
+
+  async buscarUsuarioYGuardar() {
+    try {
+      // 1. Buscar el usuario
+      const usuario = await firstValueFrom(this.servicioUsuario.buscarUsuario(this.cc));
+      console.log("Usuario encontrado:", usuario);
+
+      // 2. Asignar el idUsuario
+      this.alquiler.idUsuario = usuario.identificacion;
+
+      // 3. Confirmar que la placa esté en el objeto vehiculo
+      console.log("Objeto alquiler enviado al backend:", this.alquiler);
+
+      // 4. Enviar al backend
+      this.servicioAlquiler.guardarAlquiler(this.alquiler).subscribe({
+        next: (dato) => {
+          console.log("Alquiler guardado con éxito:", dato);
+          this.cerrarModalAlquiler();
+          alert("Su alquiler ha sido asignado con éxito");
+          this.listarVehiculos(); // Refresca lista para ver el cambio de estado a 'alquilado'
+        },
+        error: (err) => {
+          console.error("Error devuelto por Spring Boot:", err);
+          if (typeof err.error === 'string') {
+            alert("Error: " + err.error);
+          } else {
+            alert("No se pudo guardar el alquiler. Verifique que el vehículo esté disponible.");
+          }
+        }
+      });
+
+    } catch (error) {
+      console.error('Error al buscar el usuario:', error);
+      alert('No se pudo encontrar el usuario con la cédula ingresada');
+    }
   }
 }

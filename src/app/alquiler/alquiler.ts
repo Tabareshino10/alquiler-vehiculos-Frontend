@@ -48,9 +48,10 @@ export class Alquiler implements OnInit {
     this.servicioAlquiler.listarAlquileres().subscribe(dato => {
       this.listaA = dato;
       this.cdr.markForCheck();
-      console.log(this.listaA);
     });
   }
+
+
 
   solicitarAlquiler() {
     this.servicioVehiculo.buscarPorEstado("disponible").subscribe(dato => {
@@ -66,7 +67,6 @@ export class Alquiler implements OnInit {
       this.alquiler.vehiculo = v;
 
       this.servicioAlquiler.guardarAlquiler(this.alquiler).subscribe(dato => {
-        console.log(dato);
         this.cerrarModal();
         alert("Su solicitud de alquiler fue procesada con éxito");
         this.alquiler = new AlquilerE();
@@ -78,37 +78,42 @@ export class Alquiler implements OnInit {
     }
   }
 
-  cancelar(idAlquiler: number) {
-    this.servicioAlquiler.cancelarAlquiler(idAlquiler).subscribe(dato => {
-      console.log(dato);
-      this.listarAlquileres();
-    });
-  }
+ eliminar(idAlquiler: number) {
+  this.servicioAlquiler.eliminarAlquiler(idAlquiler).subscribe(dato => {
+    console.log(dato);
+    this.listarAlquileres();
+  });
+}
+
+cancelar(idAlquiler: number) {
+  this.servicioAlquiler.cancelarAlquiler(idAlquiler).subscribe(mensaje => {
+    alert(mensaje);
+    this.eliminar(idAlquiler); 
+  });
+}
 
   entregar(placa: string) {
-    this.servicioAlquiler.entregarPorPlaca(placa).subscribe(dato => {
-      console.log(dato);
+    this.servicioAlquiler.entregarPorPlaca(placa).subscribe(mensaje => {
+      alert(mensaje);
       this.listarAlquileres();
     });
   }
 
   devolver(idAlquiler: number) {
-    this.servicioAlquiler.devolverVehiculo(idAlquiler).subscribe(dato => {
-      console.log(dato);
+    this.servicioAlquiler.devolverVehiculo(idAlquiler).subscribe(alquilerFinalizado => {
+      alert(`Vehículo devuelto con éxito. Valor total cobrado: $${alquilerFinalizado.valorAlquiler}`);
       this.listarAlquileres();
     });
   }
 
   abrirModal() {
     const modal = document.getElementById("registro");
-    if (modal != null)
-      modal.style.display = 'block';
+    if (modal != null) modal.style.display = 'block';
   }
 
   cerrarModal() {
     const modal = document.getElementById("registro");
-    if (modal != null)
-      modal.style.display = 'none';
+    if (modal != null) modal.style.display = 'none';
   }
 
   cerrarSesion() {

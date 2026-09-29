@@ -79,11 +79,23 @@
         <td>{{ a.vehiculo?.placa }}</td>
         <td>{{ a.fechaInicio }}</td>
         <td>{{ a.fechaEntregaP }}</td>
-        <td>{{ a.estado }}</td>
         <td>
-          <button *ngIf="a.estado === 'pendiente de entrega'" class="btn btn-warning btn-sm me-1" (click)="cancelar(a.idAlquiler!)">Cancelar</button>
-          <button *ngIf="a.estado === 'pendiente de entrega'" class="btn btn-info btn-sm me-1" (click)="entregar(a.vehiculo.placa)">Entregar</button>
-          <button *ngIf="a.estado === 'entregado'" class="btn btn-success btn-sm" (click)="devolver(a.idAlquiler!)">Devolver</button>
+          <span class="badge" [ngClass]="{
+            'bg-warning': a.estado === 'pendiente',
+            'bg-info': a.estado === 'alquilado',
+            'bg-success': a.estado === 'finalizado',
+            'bg-danger': a.estado === 'cancelado'
+          }">
+            {{ a.estado }}
+          </span>
+        </td>
+        <td>
+          <!-- Botones cuando el estado es 'pendiente' -->
+          <button *ngIf="a.estado === 'pendiente'" class="btn btn-warning btn-sm me-1" (click)="cancelar(a.idAlquiler!)">Cancelar</button>
+          <button *ngIf="a.estado === 'pendiente'" class="btn btn-info btn-sm me-1" (click)="entregar(a.vehiculo.placa)">Entregar</button>
+          
+          <!-- Botón cuando el estado es 'alquilado' -->
+          <button *ngIf="a.estado === 'alquilado'" class="btn btn-success btn-sm" (click)="devolver(a.idAlquiler!)">Devolver</button>
         </td>
       </tr>
     </tbody>
@@ -122,7 +134,7 @@
             <input type="date" [(ngModel)]="alquiler.fechaEntregaP" name="fechaEntregaP" class="form-control">
           </div>
           <div class="mb-3">
-            <label>Valor Alquiler:</label>
+            <label>Valor Alquiler Inicial:</label>
             <input type="number" [(ngModel)]="alquiler.valorAlquiler" name="valorAlquiler" class="form-control">
           </div>
         </form>
