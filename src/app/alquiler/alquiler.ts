@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { AlquilerService } from '../servicios/alquiler-service';
 import { VehiculoService } from '../servicios/vehiculo-service';
 import { AlquilerE } from '../Entidades/alquiler';
@@ -6,10 +6,12 @@ import { VehiculoE } from '../Entidades/vehiculo';
 import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
+import { EnviarDatosService } from '../servicios/enviar-datos-service';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-alquiler',
-  imports: [NgFor, CommonModule, FormsModule],
+  imports: [NgFor, CommonModule, FormsModule,RouterLink, RouterLinkActive,],
   templateUrl: './alquiler.html',
   styleUrl: './alquiler.css',
 })
@@ -20,8 +22,20 @@ export class Alquiler implements OnInit {
   alquiler: AlquilerE = new AlquilerE();
   placaSeleccionada: string = "";
 
+  
+  dataService = inject(EnviarDatosService);
+  private router = inject(Router);
+
+  usuario: any = null;
+
   ngOnInit(): void {
     this.listarAlquileres();
+    const datoActual = this.dataService.usuarioSignal();
+    console.log("Dato actual al iniciar:", datoActual);
+    
+    if (datoActual) {
+      this.usuario = datoActual;
+    }
   }
 
   constructor(
@@ -95,5 +109,11 @@ export class Alquiler implements OnInit {
     const modal = document.getElementById("registro");
     if (modal != null)
       modal.style.display = 'none';
+  }
+
+  cerrarSesion() {
+    this.dataService.limpiar();
+    this.usuario = null;
+    this.router.navigate(['/login']);
   }
 }

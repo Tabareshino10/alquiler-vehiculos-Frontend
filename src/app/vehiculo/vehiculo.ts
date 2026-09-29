@@ -1,12 +1,14 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { VehiculoService } from '../servicios/vehiculo-service';
 import { VehiculoE } from '../Entidades/vehiculo';
 import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { EnviarDatosService } from '../servicios/enviar-datos-service';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-vehiculo',
-  imports: [NgFor, CommonModule, FormsModule],
+  imports: [NgFor, CommonModule, FormsModule,RouterLink, RouterLinkActive,],
   templateUrl: './vehiculo.html',
   styleUrl: './vehiculo.css',
 })
@@ -16,8 +18,19 @@ export class Vehiculo implements OnInit {
   listaV: VehiculoE[] = [];
   vehiculo: VehiculoE = new VehiculoE();
 
+  dataService = inject(EnviarDatosService);
+  private router = inject(Router);
+
+  usuario: any = null;
+
   ngOnInit(): void {
     this.listarVehiculos();
+    const datoActual = this.dataService.usuarioSignal();
+    console.log("Dato actual al iniciar:", datoActual);
+    
+    if (datoActual) {
+      this.usuario = datoActual;
+    }
   }
 
   constructor(private cdr: ChangeDetectorRef, private servicioVehiculo: VehiculoService) { }
@@ -84,5 +97,11 @@ export class Vehiculo implements OnInit {
     const modal = document.getElementById("registro");
     if (modal != null)
       modal.style.display = 'none';
+  }
+
+  cerrarSesion() {
+    this.dataService.limpiar();
+    this.usuario = null;
+    this.router.navigate(['/login']);
   }
 }

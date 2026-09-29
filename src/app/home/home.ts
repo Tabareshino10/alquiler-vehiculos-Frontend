@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { EnviarDatosService } from '../servicios/enviar-datos-service';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  imports: [CommonModule],
+  imports: [RouterLink, RouterLinkActive,CommonModule],
   selector: 'app-home',
   styleUrl: './home.css',
   templateUrl: './home.html',
