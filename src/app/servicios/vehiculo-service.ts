@@ -11,12 +11,12 @@ export class VehiculoService {
 
   constructor(private httpCliente: HttpClient) { }
 
-  private listaV = 'http://localhost:8080/vehiculos/v/listarTodo/';
-  private guardarV = 'http://localhost:8080/vehiculos/v/guardar/';
-  private eliminarV = 'http://localhost:8080/vehiculos/v/eliminarVehiculo';
-  private buscarPlaca = 'http://localhost:8080/vehiculos/v/buscarPlaca/';
-  private buscarDisponiblesTipo = 'http://localhost:8080/vehiculos/v/buscarDisponiblesTipo/';
-  private buscarEstado = 'http://localhost:8080/vehiculos/v/buscarEstado/';
+  private listaV = 'https://alquiler-vehiculos-backend-1.onrender.com/vehiculos/v/listarTodo/';
+  private guardarV = 'https://alquiler-vehiculos-backend-1.onrender.com/vehiculos/v/guardar/';
+  private eliminarV = 'https://alquiler-vehiculos-backend-1.onrender.com/vehiculos/v/eliminarVehiculo';
+  private buscarPlaca = 'https://alquiler-vehiculos-backend-1.onrender.com/vehiculos/v/buscarPlaca/';
+  private buscarDisponiblesTipo = 'https://alquiler-vehiculos-backend-1.onrender.com/vehiculos/v/buscarDisponiblesTipo/';
+  private buscarEstado = 'https://alquiler-vehiculos-backend-1.onrender.com/vehiculos/v/buscarEstado/';
 
   listarVehiculos(): Observable<any> {
     return this.httpCliente.get(this.listaV);

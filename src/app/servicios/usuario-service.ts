@@ -8,11 +8,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UsuarioService {
 
-    private registro = 'http://localhost:8080/usuarios/u/guardarUsuario/';
+    private registro = 'https://alquiler-vehiculos-backend-1.onrender.com/usuarios/u/guardarUsuario/';
 
-    private login = 'http://localhost:8080/usuarios/u/login/';
+    private login = 'https://alquiler-vehiculos-backend-1.onrender.com/usuarios/u/login/';
 
-    private buscarU = 'http://localhost:8080/usuarios/u/buscarCC/'
+    private buscarU = 'https://alquiler-vehiculos-backend-1.onrender.com/usuarios/u/buscarCC/'
 
     constructor(private httpCliente: HttpClient) {}
 
