@@ -15,7 +15,7 @@ export class AlquilerService {
   private cancelarA = 'http://localhost:8080/alquileres/a/cancelar/';
   private entregarP = 'http://localhost:8080/alquileres/a/entregarPorPlaca/';
   private devolverA = 'http://localhost:8080/alquileres/a/devolver/';
-  private eliminarA = 'http://localhost:8080/alquileres/a/eliminar/'
+  private eliminarA = 'http://localhost:8080/alquileres/a/eliminar/';
 
   listarAlquileres(): Observable<AlquilerE[]> {
     return this.httpCliente.get<AlquilerE[]>(this.listaA);
