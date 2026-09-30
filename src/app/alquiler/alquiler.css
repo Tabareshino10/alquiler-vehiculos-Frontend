@@ -1,0 +1,66 @@
+
+
+/* 1. Elevación de Tarjeta con Resplandor en Borde */
+.floating-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.3s ease, 
+              border-color 0.3s ease !important;
+}
+
+.floating-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 30px -10px rgba(13, 110, 253, 0.15), 0 10px 15px -5px rgba(0, 0, 0, 0.08) !important;
+  border-color: #86b7fe !important; /* Borde azul sutil al pasar el cursor */
+}
+
+/* 2. Zoom Suave en Imágenes (Para tarjetas con foto) */
+.card-img-wrapper {
+  overflow: hidden; /* Mantiene la imagen dentro del contenedor al ampliar */
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}
+
+.card-img-wrapper img {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.floating-card:hover .card-img-wrapper img {
+  transform: scale(1.06); /* Agranda ligeramente la imagen del vehículo */
+}
+
+/* 3. Interacción en Botones de Acción */
+.btn {
+  transition: all 0.2s ease-in-out !important;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* 4. Reacción en los Íconos al hacer Hover en la Card */
+.bi-car-front-fill, 
+.bi-journal-text, 
+.bi-person-fill {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.floating-card:hover .bi-car-front-fill,
+.floating-card:hover .bi-journal-text {
+  transform: scale(1.2) rotate(-4deg); /* El ícono se agranda y se inclina */
+}
+
+/* 5. Transición en Badges / Etiquetas de Estado */
+.badge-custom {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.floating-card:hover .badge-custom {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}

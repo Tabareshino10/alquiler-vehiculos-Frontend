@@ -1,159 +1,274 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 shadow-sm border-bottom border-secondary">
-  <div class="container-fluid">
-    
-    <!-- Marca / Logo -->
-    <a class="navbar-brand fw-bold text-success d-flex align-items-center gap-2" routerLink="/home">
-      <i class="bi bi-car-front-fill fs-4 text-white"></i>
-      <span class="fs-4 text-white">Mi Cacharrito</span>
-    </a>
+    <div class="container-fluid">
 
-    <!-- Botón para celulares / pantallas pequeñas -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+        <!-- Marca / Logo -->
+        <a class="navbar-brand fw-bold text-success d-flex align-items-center gap-2" routerLink="/home">
+            <i class="bi bi-car-front-fill fs-4 text-white"></i>
+            <span class="fs-4 text-white">Mi Cacharrito</span>
+        </a>
 
-    <!-- Enlaces de Navegación -->
-    <div class="collapse navbar-collapse" id="navbarContenido">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 gap-2">
-        <li class="nav-item">
-          <a class="nav-link px-3 rounded-2" routerLink="/home" routerLinkActive="active fw-bold text-success">
-            <i class="bi bi-house-door me-1"></i> Home
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-3 rounded-2" routerLink="/vehiculo" routerLinkActive="active fw-bold text-success">
-            <i class="bi bi-car-front me-1"></i> Vehículos
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-3 rounded-2" routerLink="/alquiler" routerLinkActive="active fw-bold text-success">
-            <i class="bi bi-journal-text me-1"></i> Alquileres
-          </a>
-        </li>
-      </ul>
+        <!-- Botón para celulares -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-      @if (usuario) {
-        <div class="d-flex align-items-center gap-3 bg-secondary bg-opacity-25 px-3 py-2 rounded-pill border border-secondary mt-2 mt-lg-0">
-          <span class="badge rounded-pill bg-success px-2 py-1 d-flex align-items-center gap-1">
-            <i class="bi bi-circle-fill text-white" style="font-size: 7px;"></i> En línea
-          </span>
+        <!-- Enlaces de Navegación -->
+        <div class="collapse navbar-collapse" id="navbarContenido">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 gap-2">
+                <li class="nav-item">
+                    <a class="nav-link px-3 rounded-2" routerLink="/home"
+                        routerLinkActive="active fw-bold text-success">
+                        <i class="bi bi-house-door me-1"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 rounded-2" routerLink="/vehiculo"
+                        routerLinkActive="active fw-bold text-success">
+                        <i class="bi bi-car-front me-1"></i> Vehículos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 rounded-2" routerLink="/alquiler"
+                        routerLinkActive="active fw-bold text-success">
+                        <i class="bi bi-journal-text me-1"></i> Alquileres
+                    </a>
+                </li>
+            </ul>
 
-          <span class="fw-semibold text-white small">
-            <i class="bi bi-person-circle me-1 text-success"></i> {{ usuario.nombreCompleto }}
-          </span>
+            @if (usuario) {
+            <div
+                class="d-flex align-items-center gap-3 bg-secondary bg-opacity-25 px-3 py-2 rounded-pill border border-secondary mt-2 mt-lg-0">
+                <span class="badge rounded-pill bg-success px-2 py-1 d-flex align-items-center gap-1">
+                    <i class="bi bi-circle-fill text-white" style="font-size: 7px;"></i> En línea
+                </span>
 
-          <button class="btn btn-outline-danger btn-sm rounded-pill px-3" (click)="cerrarSesion()">
-            <i class="bi bi-box-arrow-right"></i> Salir
-          </button>
+                <span class="fw-semibold text-white small">
+                    <i class="bi bi-person-circle me-1 text-success"></i> {{ usuario.nombreCompleto }}
+                </span>
+
+                <button class="btn btn-outline-danger btn-sm rounded-pill px-3" (click)="cerrarSesion()">
+                    <i class="bi bi-box-arrow-right"></i> Salir
+                </button>
+            </div>
+            }
         </div>
-      }
-    </div>
 
-  </div>
+    </div>
 </nav>
 
-<div class="container mt-4">
-  <h2>Gestión de Alquileres</h2>
 
- 
-  @if (usuario?.rol === 'ADMIN') {
-    <div class="mb-3 text-end">
-      <button class="btn btn-primary" (click)="solicitarAlquiler()">Solicitar Nuevo Alquiler</button>
+
+<div class="container my-4">
+
+    <!-- Búsqueda por Placa (Solo ADMIN) -->
+    @if (usuario?.rol === 'ADMIN') {
+    <div class="d-flex gap-2">
+        <input type="text" id="idBusqueda" class="form-control rounded-3" placeholder="Buscar por id">
+        <button class="btn btn-info text-white fw-semibold rounded-3 text-nowrap"
+            (click)="buscarPorId()">Buscar</button>
+    </div> <br> <br>
+    }
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-dark mb-0">Gestión de Alquileres</h2>
+
+        @if (usuario?.rol === 'ADMIN') {
+        <button class="btn btn-primary fw-semibold rounded-3 shadow-sm" (click)="solicitarAlquiler()">
+            <i class="bi bi-plus-lg me-1"></i> Solicitar Nuevo Alquiler
+        </button>
+        }
     </div>
-  }
 
-  <table class="table table-striped table-bordered align-middle">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Usuario</th>
-        <th>Vehículo (Placa)</th>
-        <th>Fecha Inicio</th>
-        <th>Fecha Entrega Prevista</th>
-        <th>Estado</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let a of listaA">
-        <td>{{ a.idAlquiler }}</td>
-        <td>{{ a.idUsuario }}</td>
-        <td>{{ a.vehiculo?.placa }}</td>
-        <td>{{ a.fechaInicio }}</td>
-        <td>{{ a.fechaEntregaP }}</td>
-        <td>
-          <span class="badge" [ngClass]="{
-            'bg-warning': a.estado === 'pendiente',
-            'bg-info': a.estado === 'alquilado',
+    <!-- TARJETAS (CARDS) DE ALQUILERES -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+        <div class="col" *ngFor="let a of listaA">
+            <div class="card h-100 floating-card">
+
+                <!-- Encabezado de la Tarjeta con ID y Estado -->
+                <div
+                    class="card-header bg-transparent border-0 pt-3 px-4 d-flex justify-content-between align-items-center">
+                    <span class="fw-bold text-muted small">
+                        <i class="bi bi-hash"></i> ID Alquiler: <strong>{{ a.idAlquiler }}</strong>
+                    </span>
+                    <span class="badge badge-custom text-uppercase" [ngClass]="{
+            'bg-warning text-dark': a.estado === 'pendiente',
+            'bg-info text-white': a.estado === 'alquilado',
             'bg-success': a.estado === 'finalizado',
             'bg-danger': a.estado === 'cancelado'
           }">
-            {{ a.estado }}
-          </span>
-        </td>
-        <td>
-          <!-- 🟢 VISIBLE PARA USUARIOS Y ADMIN (Línea verde): Botón Cancelar cuando la solicitud esté pendiente -->
-          <button *ngIf="a.estado === 'pendiente'" class="btn btn-warning btn-sm me-1" (click)="cancelar(a.idAlquiler!)">
-            Cancelar
-          </button>
-          
-          <!-- ❌ OCULTO PARA USUARIOS (Línea negra): Solo el ADMIN puede Entregar o Devolver -->
-          <ng-container *ngIf="usuario?.rol === 'ADMIN'">
-            <button *ngIf="a.estado === 'pendiente'" class="btn btn-info btn-sm me-1 text-white" (click)="entregar(a.vehiculo.placa)">
-              Entregar
-            </button>
-            
-            <button *ngIf="a.estado === 'alquilado'" class="btn btn-success btn-sm" (click)="devolver(a.idAlquiler!)">
-              Devolver
-            </button>
-          </ng-container>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+                        {{ a.estado }}
+                    </span>
+                </div>
+
+                <!-- Cuerpo de la Tarjeta con detalles -->
+                <div class="card-body px-4 py-2 d-flex flex-column justify-content-between">
+                    <div>
+                        <!-- Vehículo Asociado -->
+                        <div class="d-flex align-items-center gap-3 mb-3 p-2 bg-light rounded-3 border">
+                            <div class="p-2 bg-primary bg-opacity-10 text-primary rounded-3">
+                                <i class="bi bi-car-front-fill fs-4"></i>
+                            </div>
+                            <div>
+                                <span class="text-muted small d-block">Vehículo (Placa)</span>
+                                <strong class="fs-5 text-dark">{{ a.vehiculo?.placa || 'Sin asignar' }}</strong>
+                            </div>
+                        </div>
+
+                        <!-- Detalles de Usuario y Fechas -->
+                        <div class="p-3 bg-light rounded-3 mb-3 border border-secondary-subtle">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted small"><i class="bi bi-person me-1"></i> ID Usuario:</span>
+                                <strong class="small text-dark">{{ a.idUsuario }}</strong>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted small"><i class="bi bi-calendar-event me-1"></i> Fecha
+                                    Inicio:</span>
+                                <strong class="small text-dark">{{ a.fechaInicio }}</strong>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-muted small"><i class="bi bi-calendar-check me-1"></i> Entrega
+                                    Prevista:</span>
+                                <strong class="small text-dark">{{ a.fechaEntregaP }}</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botones de Acción -->
+                    <div class="pt-3 border-top d-flex gap-2 justify-content-end align-items-center">
+                        <ng-container *ngIf="usuario?.rol === 'ADMIN'">
+                          <button class="btn btn-outline-danger btn-sm rounded-2" (click)="eliminar(a.idAlquiler!)">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </ng-container>
+                        <!-- Botón Cancelar (Disponible si está pendiente) -->
+                        <button *ngIf="a.estado === 'pendiente'"
+                            class="btn btn-outline-warning btn-sm fw-semibold rounded-pill px-3"
+                            (click)="cancelar(a.idAlquiler!)">
+                            <i class="bi bi-x-circle me-1"></i> Cancelar
+                        </button>
+
+                        <!-- Acciones de Administrador -->
+                        <ng-container *ngIf="usuario?.rol === 'ADMIN'">
+                            <button *ngIf="a.estado === 'pendiente'"
+                                class="btn btn-info btn-sm text-white fw-semibold rounded-pill px-3"
+                                (click)="entregar(a.vehiculo.placa)">
+                                <i class="bi bi-box-arrow-up-right me-1"></i> Entregar
+                            </button>
+
+                            <button *ngIf="a.estado === 'alquilado'"
+                                class="btn btn-success btn-sm fw-semibold rounded-pill px-3"
+                                (click)="abrirModalDevolucion(a.idAlquiler!)">
+                                <i class="bi bi-arrow-return-left me-1"></i> Devolver
+                            </button>
+                        </ng-container>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Modal para Solicitar Alquiler (Rutas internas del Admin) -->
 <div id="registro" class="modal" tabindex="-1" style="display: none; background: rgba(0,0,0,0.5);">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Solicitud de Alquiler</h5>
-        <button type="button" class="btn-close" (click)="cerrarModal()"></button>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Solicitud de Alquiler</h5>
+                <button type="button" class="btn-close" (click)="cerrarModal()"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label>ID Usuario:</label>
+                        <input type="number" [(ngModel)]="alquiler.idUsuario" name="idUsuario" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label>Seleccionar Vehículo Disponible:</label>
+                        <select [(ngModel)]="placaSeleccionada" name="placaSeleccionada" class="form-select">
+                            <option value="">-- Seleccione un Vehículo --</option>
+                            <option *ngFor="let v of vehiculosDisponibles" [value]="v.placa">
+                                {{ v.placa }} - {{ v.idTipoVehiculo }} ({{ v.color }})
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Fecha Inicio:</label>
+                        <input type="date" [(ngModel)]="alquiler.fechaInicio" name="fechaInicio" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label>Fecha Entrega Prevista:</label>
+                        <input type="date" [(ngModel)]="alquiler.fechaEntregaP" name="fechaEntregaP"
+                            class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label>Valor Alquiler Inicial:</label>
+                        <input type="number" [(ngModel)]="alquiler.valorAlquiler" name="valorAlquiler"
+                            class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+                <button type="button" class="btn btn-success" (click)="guardarAlquiler()">Guardar Alquiler</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Confirmar Devolución -->
+<div id="modalDevolucion" class="modal" tabindex="-1" style="display: none; background: rgba(0,0,0,0.5);">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Registrar Devolución</h5>
+                <button type="button" class="btn-close" (click)="cerrarModalDevolucion()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label>Seleccione la Fecha Real de Entrega:</label>
+                    <input type="date" [(ngModel)]="fechaDevolucion" name="fechaDevolucion" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="cerrarModalDevolucion()">Cancelar</button>
+                <button type="button" class="btn btn-success" (click)="confirmarDevolucion()">Confirmar
+                    Devolución</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal de Éxito en la Devolución -->
+<div id="modalExitoDevolucion" class="modal" tabindex="-1" style="display: none; background: rgba(0,0,0,0.6); position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999;">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+      
+      <div class="modal-body text-center p-4">
+        <!-- Ícono de Éxito -->
+        <div class="mb-3">
+          <i class="bi bi-check-circle-fill text-success" style="font-size: 3.5rem;"></i>
+        </div>
+
+        <h4 class="fw-bold text-dark mb-2">¡Devolución Exitosa!</h4>
+        <p class="text-muted small mb-4">El vehículo ha sido devuelto correctamente al sistema.</p>
+
+        <!-- Recuadro del Cobro Total -->
+        <div class="bg-light p-3 rounded-3 border mb-4">
+          <span class="text-muted small d-block mb-1">Valor Total Cobrado</span>
+          <strong class="fs-3 text-success fw-bold">
+            ${{ valorTotalCobrado | number:'1.0-2' }}
+          </strong>
+        </div>
+
+        <!-- Botón Entendido -->
+        <button type="button" class="btn btn-success fw-bold rounded-pill px-5 py-2" (click)="cerrarModalExito()">
+          Aceptar
+        </button>
       </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label>ID Usuario:</label>
-            <input type="number" [(ngModel)]="alquiler.idUsuario" name="idUsuario" class="form-control">
-          </div>
-          <div class="mb-3">
-            <label>Seleccionar Vehículo Disponible:</label>
-            <select [(ngModel)]="placaSeleccionada" name="placaSeleccionada" class="form-select">
-              <option value="">-- Seleccione un Vehículo --</option>
-              <option *ngFor="let v of vehiculosDisponibles" [value]="v.placa">
-                {{ v.placa }} - {{ v.idTipoVehiculo }} ({{ v.color }})
-              </option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label>Fecha Inicio:</label>
-            <input type="date" [(ngModel)]="alquiler.fechaInicio" name="fechaInicio" class="form-control">
-          </div>
-          <div class="mb-3">
-            <label>Fecha Entrega Prevista:</label>
-            <input type="date" [(ngModel)]="alquiler.fechaEntregaP" name="fechaEntregaP" class="form-control">
-          </div>
-          <div class="mb-3">
-            <label>Valor Alquiler Inicial:</label>
-            <input type="number" [(ngModel)]="alquiler.valorAlquiler" name="valorAlquiler" class="form-control">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
-        <button type="button" class="btn btn-success" (click)="guardarAlquiler()">Guardar Alquiler</button>
-      </div>
+
     </div>
   </div>
 </div>

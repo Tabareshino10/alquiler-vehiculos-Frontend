@@ -1,129 +1,155 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 shadow-sm border-bottom border-secondary">
-  <div class="container-fluid">
-    
-    <!-- Marca / Logo -->
-    <a class="navbar-brand fw-bold text-success d-flex align-items-center gap-2" routerLink="/home">
-      <i class="bi bi-car-front-fill fs-4 text-white"></i>
-      <span class="fs-4 text-white">Mi Cacharrito</span>
-    </a>
+    <div class="container-fluid">
 
-    <!-- Botón para celulares / pantallas pequeñas -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+        <!-- Marca / Logo -->
+        <a class="navbar-brand fw-bold text-success d-flex align-items-center gap-2" routerLink="/home">
+            <i class="bi bi-car-front-fill fs-4 text-white"></i>
+            <span class="fs-4 text-white">Mi Cacharrito</span>
+        </a>
 
-    <!-- Enlaces de Navegación -->
-    <div class="collapse navbar-collapse" id="navbarContenido">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 gap-2">
-        <li class="nav-item">
-          <a class="nav-link px-3 rounded-2" routerLink="/home" routerLinkActive="active fw-bold text-success">
-            <i class="bi bi-house-door me-1"></i> Home
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-3 rounded-2" routerLink="/vehiculo" routerLinkActive="active fw-bold text-success">
-            <i class="bi bi-car-front me-1"></i> Vehículos
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-3 rounded-2" routerLink="/alquiler" routerLinkActive="active fw-bold text-success">
-            <i class="bi bi-journal-text me-1"></i> Alquileres
-          </a>
-        </li>
-      </ul>
+        <!-- Botón para celulares / pantallas pequeñas -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <!-- Usuario En Línea (Alineado a la derecha) -->
-      @if (usuario) {
-        <div class="d-flex align-items-center gap-3 bg-secondary bg-opacity-25 px-3 py-2 rounded-pill border border-secondary mt-2 mt-lg-0">
-          <span class="badge rounded-pill bg-success px-2 py-1 d-flex align-items-center gap-1">
-            <i class="bi bi-circle-fill text-white" style="font-size: 7px;"></i> En línea
-          </span>
+        <!-- Enlaces de Navegación -->
+        <div class="collapse navbar-collapse" id="navbarContenido">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 gap-2">
+                <li class="nav-item">
+                    <a class="nav-link px-3 rounded-2" routerLink="/home"
+                        routerLinkActive="active fw-bold text-success">
+                        <i class="bi bi-house-door me-1"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 rounded-2" routerLink="/vehiculo"
+                        routerLinkActive="active fw-bold text-success">
+                        <i class="bi bi-car-front me-1"></i> Vehículos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 rounded-2" routerLink="/alquiler"
+                        routerLinkActive="active fw-bold text-success">
+                        <i class="bi bi-journal-text me-1"></i> Alquileres
+                    </a>
+                </li>
+            </ul>
 
-          <span class="fw-semibold text-white small">
-            <i class="bi bi-person-circle me-1 text-success"></i> {{ usuario.nombreCompleto }}
-          </span>
+            <!-- Usuario En Línea (Alineado a la derecha) -->
+            @if (usuario) {
+            <div
+                class="d-flex align-items-center gap-3 bg-secondary bg-opacity-25 px-3 py-2 rounded-pill border border-secondary mt-2 mt-lg-0">
+                <span class="badge rounded-pill bg-success px-2 py-1 d-flex align-items-center gap-1">
+                    <i class="bi bi-circle-fill text-white" style="font-size: 7px;"></i> En línea
+                </span>
 
-          <button class="btn btn-outline-danger btn-sm rounded-pill px-3" (click)="cerrarSesion()">
-            <i class="bi bi-box-arrow-right"></i> Salir
-          </button>
+                <span class="fw-semibold text-white small">
+                    <i class="bi bi-person-circle me-1 text-success"></i> {{ usuario.nombreCompleto }}
+                </span>
+
+                <button class="btn btn-outline-danger btn-sm rounded-pill px-3" (click)="cerrarSesion()">
+                    <i class="bi bi-box-arrow-right"></i> Salir
+                </button>
+            </div>
+            }
         </div>
-      }
-    </div>
 
-  </div>
+    </div>
 </nav>
 <div class="container my-4">
-  <h2 class="mb-4">Gestión de Vehículos</h2>
+    <h2 class="fw-bold text-dark mb-4">Gestión de Vehículos</h2>
 
-  <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
-    
-    <!-- ❌ OCULTO PARA USUARIO (Marcado con línea negra): Solo el ADMIN busca por placa -->
-    @if (usuario?.rol === 'ADMIN') {
-      <div class="d-flex gap-2">
-        <input type="text" id="placaBusqueda" class="form-control" placeholder="Buscar por placa">
-        <button class="btn btn-info text-white text-nowrap" (click)="buscarPorPlaca()">Buscar Placa</button>
-      </div>
-    }
+    <!-- Barra de Búsqueda y Filtros dentro de una tarjeta blanca contenedora -->
+    <div class="filter-bar mb-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
 
-    <!-- 🟢 VISIBLE PARA USUARIO (Marcado con verde): Filtro por Tipo -->
-    <div class="d-flex gap-2">
-      <select id="tipoSelect" class="form-select" (change)="buscarPorTipoDisponibles()">
-        <option value="">-- Filtrar Disponibles por Tipo --</option>
-        <option value="automovil">Automóvil</option>
-        <option value="camioneta">Camioneta</option>
-        <option value="campero">Campero</option>
-        <option value="microbus">Microbús</option>
-        <option value="moto">Motocicleta</option>
-      </select>
-    </div>
-
-    <!-- ❌ OCULTO PARA USUARIO (Marcado con línea negra): Botón Agregar Vehículo -->
-    @if (usuario?.rol === 'ADMIN') {
-      <button class="btn btn-primary" (click)="abrirModal()">Agregar Vehículo</button>
-    }
-  </div>
-
-  <!-- TABLA DE VEHÍCULOS -->
-  <table class="table table-striped align-middle">
-    <thead>
-      <tr>
-        <th>Placa</th>
-        <th>Color</th>
-        <th>Tipo</th>
-        <th>Estado</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let v of listaV">
-        <td>{{ v.placa }}</td>
-        <td>{{ v.color }}</td>
-        <td>{{ v.idTipoVehiculo }}</td>
-        <td>
-          <span class="badge" [ngClass]="v.estado === 'disponible' ? 'bg-success' : 'bg-secondary'">
-            {{ v.estado }}
-          </span>
-        </td>
-        <td>
-          <div class="d-flex gap-1">
-            <!-- ❌ OCULTO PARA USUARIO (Marcados con línea negra): Editar y Eliminar -->
+            <!-- Búsqueda por Placa (Solo ADMIN) -->
             @if (usuario?.rol === 'ADMIN') {
-              <button class="btn btn-warning btn-sm" (click)="actualizar(v)">Editar</button>
-              <button class="btn btn-danger btn-sm" (click)="eliminar(v.placa)">Eliminar</button>
+            <div class="d-flex gap-2">
+                <input type="text" id="placaBusqueda" class="form-control rounded-3" placeholder="Buscar por placa">
+                <button class="btn btn-info text-white fw-semibold rounded-3 text-nowrap"
+                    (click)="buscarPorPlaca()">Buscar Placa</button>
+            </div>
             }
 
-            <!-- 🟢 VISIBLE PARA USUARIO (Marcado con verde): Seleccionar (Genera el PDF al completar) -->
-            <button 
-              class="btn btn-warning btn-sm fw-bold" 
-              [disabled]="v.estado !== 'disponible'"
-              (click)="elegirVehiculo(v)">
-              Seleccionar
+            <!-- Filtro por Tipo -->
+            <div class="d-flex gap-2">
+                <select id="tipoSelect" class="form-select rounded-3" (change)="buscarPorTipoDisponibles()">
+                    <option value="">-- Filtrar Disponibles por Tipo --</option>
+                    <option value="automovil">Automóvil</option>
+                    <option value="camioneta">Camioneta</option>
+                    <option value="campero">Campero</option>
+                    <option value="microbus">Microbús</option>
+                    <option value="moto">Motocicleta</option>
+                </select>
+            </div>
+
+            <!-- Botón Agregar (Solo ADMIN) -->
+            @if (usuario?.rol === 'ADMIN') {
+            <button class="btn btn-primary fw-semibold rounded-3" (click)="abrirModal()">
+                <i class="bi bi-plus-lg me-1"></i> Agregar Vehículo
             </button>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            }
+        </div>
+    </div>
+
+    <!-- TARJETAS DE VEHÍCULOS -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+        <div class="col" *ngFor="let v of listaV">
+            <div class="card h-100 floating-card">
+
+                <!-- Contenedor con fondo claro para la imagen -->
+                <div class="position-relative card-img-wrapper text-center">
+                    <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=600&auto=format&fit=crop"
+                        alt="Vehículo" class="img-fluid" style="height: 170px; width: 100%;">
+
+                    <span class="badge position-absolute top-0 end-0 m-3 shadow-sm badge-custom"
+                        [ngClass]="v.estado === 'disponible' ? 'bg-success' : 'bg-secondary'">
+                        {{ v.estado | titlecase }}
+                    </span>
+                </div>
+
+                <!-- Cuerpo de la Tarjeta -->
+                <div class="card-body d-flex flex-column justify-content-between p-4">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="card-title fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                                <i class="bi bi-car-front-fill text-primary"></i> {{ v.placa }}
+                            </h5>
+                            <span class="badge bg-light text-secondary border px-2 py-1 text-uppercase fw-semibold">
+                                {{ v.idTipoVehiculo }}
+                            </span>
+                        </div>
+
+                        <p class="card-text text-muted small mb-0">
+                            <i class="bi bi-palette-fill me-1"></i> Color: <strong>{{ v.color }}</strong>
+                        </p>
+                    </div>
+
+                    <!-- Botones de Acción -->
+                    <div class="pt-3 mt-3 border-top d-flex gap-2 justify-content-between align-items-center">
+                        @if (usuario?.rol === 'ADMIN') {
+                        <div class="d-flex gap-1">
+                            <button class="btn btn-outline-warning btn-sm rounded-2" (click)="actualizar(v)">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm rounded-2" (click)="eliminar(v.placa)">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                        }
+
+                        <button class="btn btn-success fw-bold rounded-pill px-4 ms-auto"
+                            [disabled]="v.estado !== 'disponible'" (click)="elegirVehiculo(v)">
+                            <i class="bi bi-check-circle-fill me-1"></i> Alquilar
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Modal de Registro/Edición -->
@@ -159,7 +185,6 @@
                         <select [(ngModel)]="vehiculo.estado" name="estado" class="form-select">
                             <option value="disponible">Disponible</option>
                             <option value="alquilado">Alquilado</option>
-                            <option value="alquilado">entregado</option>
                         </select>
                     </div>
                 </form>
@@ -173,46 +198,91 @@
 </div>
 
 <!-- MODAL DE ALQUILER -->
-<div id="registroAlquiler" style="display: none; background: rgba(0,0,0,0.6); position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; overflow-y: auto;">
-  
-  <div style="margin: 5% auto; max-width: 500px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); pointer-events: auto;">
-    
-    <h3 class="mb-4">Solicitar Alquiler</h3>
-    
-    <!-- Vehículo seleccionado -->
-    <div class="alert alert-info">
-      <strong>Vehículo Seleccionado:</strong> {{ alquiler.vehiculo?.placa }}
-    </div>
+<div id="registroAlquiler"
+    style="display: none; background: rgba(0,0,0,0.6); position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; overflow-y: auto;">
 
-    <!-- Cédula -->
-    <div class="form-group mb-3">
-      <label class="fw-bold">Cédula del Usuario:</label>
-      <input type="text" [(ngModel)]="cc" name="cc" class="form-control" placeholder="Ingrese la cédula">
-    </div>
+    <div
+        style="margin: 5% auto; max-width: 500px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); pointer-events: auto;">
 
-    <!-- Fecha Inicio -->
-    <div class="form-group mb-3">
-      <label class="fw-bold">Fecha de Inicio:</label>
-      <input type="date" [(ngModel)]="alquiler.fechaInicio" name="fechaInicio" class="form-control">
-    </div>
+        <h3 class="mb-4">Solicitar Alquiler</h3>
 
-    <!-- Fecha Entrega Prevista (Coincide con fechaEntregaP en Java) -->
-    <div class="form-group mb-3">
-      <label class="fw-bold">Fecha Prevista de Entrega:</label>
-      <input type="date" [(ngModel)]="alquiler.fechaEntregaP" name="fechaEntregaP" class="form-control">
-    </div>
+        <!-- Vehículo seleccionado -->
+        <div class="alert alert-info">
+            <strong>Vehículo Seleccionado:</strong> {{ alquiler.vehiculo?.placa }}
+        </div>
 
-    <!-- Valor Alquiler (Coincide con valorAlquiler en Java) -->
-    <div class="form-group mb-4">
-      <label class="fw-bold">Valor Alquiler ($):</label>
-      <input type="number" [(ngModel)]="alquiler.valorAlquiler" name="valorAlquiler" class="form-control" placeholder="0.00">
-    </div>
+        <!-- Cédula -->
+        <div class="form-group mb-3">
+            <label class="fw-bold">Cédula del Usuario:</label>
+            <input type="text" [(ngModel)]="cc" name="cc" class="form-control" placeholder="Ingrese la cédula">
+        </div>
 
-    <!-- Botones -->
-    <div class="d-flex justify-content-end mt-4">
-      <button type="button" class="btn btn-secondary me-2" (click)="cerrarModalAlquiler()">Cancelar</button>
-      <button type="button" class="btn btn-primary" (click)="guardarAlquiler()">Confirmar Alquiler</button>
-    </div>
+        <!-- Fecha Inicio -->
+        <div class="form-group mb-3">
+            <label class="fw-bold">Fecha de Inicio:</label>
+            <input type="date" [(ngModel)]="alquiler.fechaInicio" name="fechaInicio" class="form-control">
+        </div>
 
+        <!-- Fecha Entrega Prevista (Coincide con fechaEntregaP en Java) -->
+        <div class="form-group mb-3">
+            <label class="fw-bold">Fecha Prevista de Entrega:</label>
+            <input type="date" [(ngModel)]="alquiler.fechaEntregaP" name="fechaEntregaP" class="form-control">
+        </div>
+
+        <!-- Valor Alquiler (Coincide con valorAlquiler en Java) -->
+        <div class="form-group mb-4">
+            <label class="fw-bold">Valor Alquiler ($):</label>
+            <input type="number" [(ngModel)]="alquiler.valorAlquiler" name="valorAlquiler" class="form-control"
+                placeholder="0.00">
+        </div>
+
+        <!-- Botones -->
+        <div class="d-flex justify-content-end mt-4">
+            <button type="button" class="btn btn-secondary me-2" (click)="cerrarModalAlquiler()">Cancelar</button>
+            <button type="button" class="btn btn-primary" (click)="guardarAlquiler()">Confirmar Alquiler</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal de Éxito al Registrar Alquiler -->
+<div id="modalExitoRegistro" class="modal" tabindex="-1" style="display: none; background: rgba(0,0,0,0.6); position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999;">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+      
+      <div class="modal-body text-center p-4">
+       
+        <div class="mb-3">
+          <i class="bi bi-file-earmark-check-fill text-success" style="font-size: 3.5rem;"></i>
+        </div>
+
+        <h4 class="fw-bold text-dark mb-2">¡Alquiler Registrado!</h4>
+        <p class="text-muted small mb-3">
+          El alquiler se procesó correctamente. Se está generando y descargando tu comprobante en PDF.
+        </p>
+
+      
+        <div class="bg-light p-3 rounded-3 border mb-4 text-start" *ngIf="alquilerRegistradoInfo">
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted small"><i class="bi bi-hash me-1"></i> ID Alquiler:</span>
+            <strong class="small text-dark">#{{ alquilerRegistradoInfo?.idAlquiler }}</strong>
+          </div>
+          <div class="d-flex justify-content-between mb-2" *ngIf="vehiculoSeleccionado">
+            <span class="text-muted small"><i class="bi bi-car-front me-1"></i> Vehículo:</span>
+            <strong class="small text-dark">{{ vehiculoSeleccionado?.placa }}</strong>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span class="text-muted small"><i class="bi bi-cash me-1"></i> Valor Inicial:</span>
+            <strong class="small text-successfw-bold">${{ alquilerRegistradoInfo?.valorAlquiler | number:'1.0-2' }}</strong>
+          </div>
+        </div>
+
+        
+        <button type="button" class="btn btn-success fw-bold rounded-pill px-5 py-2" (click)="cerrarModalExitoRegistro()">
+          Aceptar
+        </button>
+      </div>
+
+    </div>
   </div>
 </div>
