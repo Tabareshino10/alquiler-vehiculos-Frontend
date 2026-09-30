@@ -11,6 +11,13 @@ import { CommonModule } from '@angular/common';
 })
 export class Home {
 
+  scrollToSection(sectionId: string) {
+    const elemento = document.getElementById(sectionId);
+    if (elemento) {
+      elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
   dataService = inject(EnviarDatosService);
   private router = inject(Router);
 

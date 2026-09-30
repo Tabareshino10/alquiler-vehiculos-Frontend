@@ -54,35 +54,81 @@
   </div>
 </nav>
 
-<!-- HERO BANNER VERDE FULL WIDTH (Pegado al navbar) -->
-<section class="bg-success text-white py-5 position-relative overflow-hidden shadow-sm w-100">
-  <div class="container py-4">
-    <div class="row align-items-center">
-      
-      <!-- Lado Izquierdo: Texto y Botón -->
-      <div class="col-lg-7">
-        <span class="badge bg-white text-success fw-bold px-3 py-2 rounded-pill mb-3 shadow-sm">
-          <i class="bi bi-star-fill text-warning me-1"></i> Mi Cacharrito
-        </span>
-        <h1 class="display-4 fw-bold mb-3">Alquila el vehículo ideal para tu próximo destino</h1>
-        <p class="lead mb-4 opacity-90">
-          Encuentra automóviles, camionetas, camperos, microbuses y motocicletas listos para tus viajes. Proceso rápido, seguro y disponible en línea.
-        </p>
-        <div class="d-flex flex-wrap gap-3">
-          <a routerLink="/vehiculo" class="btn btn-light text-success btn-lg fw-bold px-4 rounded-3 shadow-sm">
-            Explorar Categorías <i class="bi bi-arrow-right ms-1"></i>
-          </a>
+
+<div class="home-container">
+ 
+  <section class="hero-section d-flex align-items-center position-relative">
+    <div class="hero-overlay"></div>
+    
+    <div class="container position-relative z-2 py-5 text-center text-lg-start">
+      <div class="row align-items-center">
+        <div class="col-lg-8 col-xl-7">
+          <span class="badge bg-success bg-gradient text-white px-3 py-2 rounded-pill mb-3 shadow-sm d-inline-flex align-items-center gap-2">
+            <i class="bi bi-star-fill text-warning"></i> La mejor experiencia sobre ruedas
+          </span>
+          
+          <h1 class="hero-title text-white fw-extrabold mb-3">
+            Alquila el vehículo ideal para tu próximo destino
+          </h1>
+          
+          <p class="hero-subtitle text-white-50 fs-5 mb-4 me-lg-3">
+            Viaja con tranquilidad y estilo. Contamos con una flota moderna de automóviles, camionetas, camperos, microbuses y motocicletas listos para salir a la carretera.
+          </p>
+
+          <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
+            <a routerLink="/vehiculo" class="btn btn-success btn-lg px-4 py-3 rounded-3 fw-bold shadow-lg d-inline-flex align-items-center gap-2">
+              <i class="bi bi-car-front-fill"></i> Ver Todos los Vehículos
+            </a>
+            <button (click)="scrollToSection('introduccion')" class="btn btn-outline-light btn-lg px-4 py-3 rounded-3 fw-semibold d-inline-flex align-items-center gap-2">
+              Conocer Más <i class="bi bi-arrow-down-short fs-4"></i>
+            </button>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Lado Derecho: Icono Ilustración -->
-      <div class="col-lg-5 d-none d-lg-block text-center">
-        <i class="bi bi-car-front display-1 text-white opacity-75" style="font-size: 10rem;"></i>
+  <!-- SECCIÓN DE INTRODUCCIÓN Y BENEFICIOS -->
+  <section id="introduccion" class="py-5 bg-light">
+    <div class="container py-4">
+      <div class="text-center max-w-700 mx-auto mb-5">
+        <h2 class="fw-bold text-dark display-6">¿Por qué elegir Mi Cacharrito?</h2>
+        <p class="text-muted fs-5">Diseñado para brindarte comodidad, transparencia y un proceso 100% digital en cada alquiler.</p>
       </div>
 
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm rounded-4 p-4 text-center hover-card bg-white">
+            <div class="icon-box bg-success bg-opacity-10 text-success rounded-circle mx-auto mb-3">
+              <i class="bi bi-lightning-charge-fill fs-2"></i>
+            </div>
+            <h5 class="fw-bold text-dark">Reserva Rápida y Fácil</h5>
+            <p class="text-muted small mb-0">Selecciona tu fecha, confirma con un par de clics y obtén tu comprobante listo en PDF al instante.</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm rounded-4 p-4 text-center hover-card bg-white">
+            <div class="icon-box bg-success bg-opacity-10 text-success rounded-circle mx-auto mb-3">
+              <i class="bi bi-shield-check fs-2"></i>
+            </div>
+            <h5 class="fw-bold text-dark">Flota Garantizada</h5>
+            <p class="text-muted small mb-0">Todos nuestros vehículos pasan por inspección técnica constante para asegurar viajes seguros.</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm rounded-4 p-4 text-center hover-card bg-white">
+            <div class="icon-box bg-success bg-opacity-10 text-success rounded-circle mx-auto mb-3">
+              <i class="bi bi-receipt-cutoff fs-2"></i>
+            </div>
+            <h5 class="fw-bold text-dark">Sin Cargos Ocultos</h5>
+            <p class="text-muted small mb-0">Transparencia total en el valor del alquiler desde el primer momento en que realizas tu solicitud.</p>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
 <!-- Carrusel de Vehículos Disponibles -->
 <section class="container my-5" id="flota">
@@ -108,7 +154,7 @@
           <span class="badge bg-success mb-2 px-3 py-2 fs-6">Automóviles</span>
           <h3 class="display-6 fw-bold">Comodidad y Eficiencia Urbana</h3>
           <p class="fs-5 d-none d-md-block">Ideal para recorridos diarios y viajes en ciudad.</p>
-          <button class="btn btn-success px-4 rounded-pill">Ver Disponibles</button>
+          <button class="btn btn-success px-4 rounded-pill" routerLink="/vehiculo">Ver Disponibles</button>
         </div>
       </div>
 
@@ -118,7 +164,7 @@
           <span class="badge bg-success mb-2 px-3 py-2 fs-6">Camionetas</span>
           <h3 class="display-6 fw-bold">Espacio y Potencia Familiar</h3>
           <p class="fs-5 d-none d-md-block">Capacidad y confort para viajes largos con equipaje.</p>
-          <button class="btn btn-success px-4 rounded-pill">Ver Disponibles</button>
+          <button class="btn btn-success px-4 rounded-pill" routerLink="/vehiculo">Ver Disponibles</button>
         </div>
       </div>
 
@@ -128,7 +174,7 @@
           <span class="badge bg-success mb-2 px-3 py-2 fs-6">Camperos 4x4</span>
           <h3 class="display-6 fw-bold">Aventura Todo Terreno</h3>
           <p class="fs-5 d-none d-md-block">Resistencia asegurada para caminos difíciles y trocha.</p>
-          <button class="btn btn-success px-4 rounded-pill">Ver Disponibles</button>
+          <button class="btn btn-success px-4 rounded-pill" routerLink="/vehiculo">Ver Disponibles</button>
         </div>
       </div>
 
@@ -138,7 +184,7 @@
           <span class="badge bg-success mb-2 px-3 py-2 fs-6">Microbuses</span>
           <h3 class="display-6 fw-bold">Transporte de Grupos</h3>
           <p class="fs-5 d-none d-md-block">Capacidad ampliada para viajes grupales y ejecutivos.</p>
-          <button class="btn btn-success px-4 rounded-pill">Ver Disponibles</button>
+          <button class="btn btn-success px-4 rounded-pill" routerLink="/vehiculo">Ver Disponibles</button>
         </div>
       </div>
 
@@ -148,7 +194,7 @@
           <span class="badge bg-success mb-2 px-3 py-2 fs-6">Motocicletas</span>
           <h3 class="display-6 fw-bold">Agilidad y Rapidez</h3>
           <p class="fs-5 d-none d-md-block">Desplazamiento ágil para moverte sin complicaciones.</p>
-          <button class="btn btn-success px-4 rounded-pill">Ver Disponibles</button>
+          <button class="btn btn-success px-4 rounded-pill" routerLink="/vehiculo">Ver Disponibles</button>
         </div>
       </div>
     </div>
@@ -163,58 +209,43 @@
 </section>
 
 <!-- Tarjetas de Selección por Categoría -->
-<section class="container my-5 py-3" id="categorias">
-  <div class="text-center mb-4">
-    <h3 class="fw-bold">Categorías de Vehículos</h3>
-    <p class="text-muted">Filtra y encuentra rápidamente lo que buscas</p>
-  </div>
+<section class="py-5 bg-white">
+    <div class="container py-3">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold text-dark display-6">¿Cómo funciona el servicio?</h2>
+        <p class="text-muted">Alquilar con nosotros solo te tomará 3 pasos</p>
+      </div>
 
-  <div class="row g-3 text-center justify-content-center">
-    
-    <div class="col-6 col-md-4 col-lg-2">
-      <div class="card border-0 shadow-sm p-3 rounded-4 hover-card h-100">
-        <div class="text-success mb-2">
-          <i class="bi bi-car-front fs-1"></i>
+      <div class="row g-4 text-center">
+        <div class="col-md-4">
+          <div class="p-3">
+            <div class="step-number text-success fw-bold mx-auto mb-3">1</div>
+            <h5 class="fw-bold">Elige tu vehículo</h5>
+            <p class="text-muted small">Explora nuestro catálogo en la sección de Vehículos y selecciona el que más te guste.</p>
+          </div>
         </div>
-        <h6 class="fw-bold mb-0">Automóvil</h6>
+        <div class="col-md-4">
+          <div class="p-3">
+            <div class="step-number text-success fw-bold mx-auto mb-3">2</div>
+            <h5 class="fw-bold">Genera tu comprobante</h5>
+            <p class="text-muted small">Ingresa tus fechas y descarga automáticamente tu factura/comprobante oficial en PDF.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3">
+            <div class="step-number text-success fw-bold mx-auto mb-3">3</div>
+            <h5 class="fw-bold">Recoge y disfruta</h5>
+            <p class="text-muted small">Muestra tu comprobante para la entrega del vehículo por parte del administrador ¡y listo!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTÓN LLAMADO A LA ACCIÓN FINAL -->
+      <div class="text-center mt-5">
+        <a routerLink="/vehiculo" class="btn btn-success btn-lg px-5 py-3 rounded-pill fw-bold shadow">
+          Ir a los Vehículos Disponibles <i class="bi bi-arrow-right ms-2"></i>
+        </a>
       </div>
     </div>
-
-    <div class="col-6 col-md-4 col-lg-2">
-      <div class="card border-0 shadow-sm p-3 rounded-4 hover-card h-100">
-        <div class="text-success mb-2">
-          <i class="bi bi-truck fs-1"></i>
-        </div>
-        <h6 class="fw-bold mb-0">Camioneta</h6>
-      </div>
-    </div>
-
-    <div class="col-6 col-md-4 col-lg-2">
-      <div class="card border-0 shadow-sm p-3 rounded-4 hover-card h-100">
-        <div class="text-success mb-2">
-          <i class="bi bi-compass fs-1"></i>
-        </div>
-        <h6 class="fw-bold mb-0">Campero</h6>
-      </div>
-    </div>
-
-    <div class="col-6 col-md-4 col-lg-2">
-      <div class="card border-0 shadow-sm p-3 rounded-4 hover-card h-100">
-        <div class="text-success mb-2">
-          <i class="bi bi-bus-front fs-1"></i>
-        </div>
-        <h6 class="fw-bold mb-0">Microbús</h6>
-      </div>
-    </div>
-
-    <div class="col-6 col-md-4 col-lg-2">
-      <div class="card border-0 shadow-sm p-3 rounded-4 hover-card h-100">
-        <div class="text-success mb-2">
-          <i class="bi bi-bicycle fs-1"></i>
-        </div>
-        <h6 class="fw-bold mb-0">Motocicleta</h6>
-      </div>
-    </div>
-
-  </div>
-</section>
+  </section>
+</div>
